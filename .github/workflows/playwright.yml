@@ -1,39 +1,36 @@
 name: Playwright Tests
-
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
   schedule:
-    - cron: '0 0 * * *'  # Run daily at midnight UTC
+    - cron: '0 0 * * *' # Run daily at midnight UTC
 
 jobs:
   test:
     name: Run Playwright Tests
     runs-on: ubuntu-latest
-    
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, safari]
-
+        browser: [chromium, webkit]
     steps:
       - name: Checkout code
-        uses: actions/checkout@@v3
-
+        uses: actions/checkout@v3
+      
       - name: Setup Node.js
-        uses: actions/setup-node@@v3
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
-
+      
       - name: Install dependencies
         run: npm ci
-
+      
       - name: Install Playwright browsers
         run: npx playwright install ${{ matrix.browser }}
-
+      
       - name: Run Playwright tests
         run: npx playwright test --project=${{ matrix.browser }}
         env:
@@ -41,49 +38,48 @@ jobs:
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
           CI: true
-
+      
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v3
         with:
           name: test-results-${{ matrix.browser }}
           path: test-results/
           retention-days: 7
-
+  
   report:
     name: Generate Test Report
     needs: test
     if: always()
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
+      
       - name: Download all test results
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v3
         with:
           path: all-test-results
-
+      
       - name: Merge test results
         run: |
           mkdir -p merged-test-results
           find all-test-results -name "junit-results.xml" -exec cp {} merged-test-results/ \;
           npx junit-merge -d merged-test-results -o merged-test-results/junit.xml
-
+      
       - name: Publish test report
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: merged-test-results/junit.xml
-          
+      
       - name: Upload merged test results
-        uses: actions/upload-artifact@vv3.1.3
+        uses: actions/upload-artifact@v3
         with:
           name: merged-test-results
           path: merged-test-results/
