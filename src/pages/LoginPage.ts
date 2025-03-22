@@ -36,12 +36,8 @@ export class LoginPage {
         // Check if we are running on github
         if (process.env.CI) {
             // Using github secrets
-            email = process.env.PROPOSIFY_USERNAME ?? '';
-            password = process.env.PROPOSIFY_PASSWORD ?? '';
-
-            if (!email || !password) {
-                throw new Error('Email/Username or Password are missing in github actions secrets');
-            }
+            email = process.env.TEST_EMAIL ?? '';
+            password = process.env.TEST_PASSWORD ?? '';
 
             if (!email || !password) {
                 throw new Error('Email/Username or Password are missing in github actions secrets');
