@@ -20,10 +20,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@@v3
         with:
           node-version: '18'
           cache: 'npm'
@@ -66,7 +66,7 @@ jobs:
           node-version: '18'
 
       - name: Download all test results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3.0.2
         with:
           path: all-test-results
 
@@ -83,7 +83,7 @@ jobs:
           files: merged-test-results/junit.xml
           
       - name: Upload merged test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@vv3.1.3
         with:
           name: merged-test-results
           path: merged-test-results/
