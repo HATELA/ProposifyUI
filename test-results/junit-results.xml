@@ -1,0 +1,121 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="14.999440999999642">
+<testsuite name="tests/proposifyui.spec.ts" timestamp="2025-03-22T01:12:09.743Z" hostname="" tests="1" failures="1" skipped="0" time="13.429" errors="0">
+<testcase name="Create a document and reorder a row after inserting a pricing table," classname="tests/proposifyui.spec.ts" time="13.429">
+<failure message="proposifyui.spec.ts:8:5 Create a document and reorder a row after inserting a pricing table," type="FAILURE">
+<![CDATA[  tests/proposifyui.spec.ts:8:5 › Create a document and reorder a row after inserting a pricing table, 
+
+    Error: Timed out 5000ms waiting for expect(locator).toBeVisible()
+
+    Locator: getByTestId('table-block-test-id').getByRole('textbox')
+    Expected: visible
+    Received: <element(s) not found>
+    Call log:
+      - expect.toBeVisible with timeout 5000ms
+      - waiting for getByTestId('table-block-test-id').getByRole('textbox')
+
+
+       at pages/CreateDocumentPage.ts:90
+
+      88 |   
+      89 |       // Ensure textbox is visible and interactable
+    > 90 |       await expect(textbox).toBeVisible();
+         |                             ^
+      91 |       await textbox.click({ force: true });
+      92 |   
+      93 |       // Fill the name
+        at CreateDocumentPage.fillNameColumn (/Users/shivam.patel/Documents/ProposifyUI/src/pages/CreateDocumentPage.ts:90:29)
+        at /Users/shivam.patel/Documents/ProposifyUI/src/tests/proposifyui.spec.ts:23:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/tests-proposifyui-Create-a-ea75d--inserting-a-pricing-table-/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|tests-proposifyui-Create-a-ea75d--inserting-a-pricing-table-/test-failed-1.png]]
+]]>
+</system-out>
+<system-err>
+<![CDATA[Error during "Question 2: Pricing table" test: ExpectError: [31mTimed out 5000ms waiting for [39m[2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m
+
+Locator: getByTestId('table-block-test-id').getByRole('textbox')
+Expected: visible
+Received: <element(s) not found>
+Call log:
+[2m  - expect.toBeVisible with timeout 5000ms[22m
+[2m  - waiting for getByTestId('table-block-test-id').getByRole('textbox')[22m
+
+    at CreateDocumentPage.fillNameColumn (/Users/shivam.patel/Documents/ProposifyUI/src/pages/CreateDocumentPage.ts:90:29)
+    at /Users/shivam.patel/Documents/ProposifyUI/src/tests/proposifyui.spec.ts:23:30 {
+  matcherResult: {
+    message: '\x1B[31mTimed out 5000ms waiting for \x1B[39m\x1B[2mexpect(\x1B[22m\x1B[31mlocator\x1B[39m\x1B[2m).\x1B[22mtoBeVisible\x1B[2m()\x1B[22m\n' +
+      '\n' +
+      "Locator: getByTestId('table-block-test-id').getByRole('textbox')\n" +
+      'Expected: visible\n' +
+      'Received: <element(s) not found>\n' +
+      'Call log:\n' +
+      '\x1B[2m  - expect.toBeVisible with timeout 5000ms\x1B[22m\n' +
+      "\x1B[2m  - waiting for getByTestId('table-block-test-id').getByRole('textbox')\x1B[22m\n",
+    pass: false,
+    actual: '<element(s) not found>',
+    name: 'toBeVisible',
+    expected: 'visible',
+    log: [
+      '  - expect.toBeVisible with timeout 5000ms',
+      "  - waiting for getByTestId('table-block-test-id').getByRole('textbox')"
+    ],
+    timeout: 5000
+  },
+  [Symbol(step)]: {
+    stepId: 'expect@25',
+    category: 'expect',
+    title: 'expect.toBeVisible',
+    params: undefined,
+    infectParentStepsWithError: undefined,
+    boxedStack: undefined,
+    location: {
+      file: '/Users/shivam.patel/Documents/ProposifyUI/src/pages/CreateDocumentPage.ts',
+      line: 90,
+      column: 29,
+      function: 'CreateDocumentPage.fillNameColumn'
+    },
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [TestInfoImpl],
+      _stepId: 'expect@25'
+    },
+    complete: [Function: complete],
+    endWallTime: 1742605943990,
+    error: {
+      message: 'Error: \x1B[31mTimed out 5000ms waiting for \x1B[39m\x1B[2mexpect(\x1B[22m\x1B[31mlocator\x1B[39m\x1B[2m).\x1B[22mtoBeVisible\x1B[2m()\x1B[22m\n' +
+        '\n' +
+        "Locator: getByTestId('table-block-test-id').getByRole('textbox')\n" +
+        'Expected: visible\n' +
+        'Received: <element(s) not found>\n' +
+        'Call log:\n' +
+        '\x1B[2m  - expect.toBeVisible with timeout 5000ms\x1B[22m\n' +
+        "\x1B[2m  - waiting for getByTestId('table-block-test-id').getByRole('textbox')\x1B[22m\n",
+      stack: 'Error: \x1B[31mTimed out 5000ms waiting for \x1B[39m\x1B[2mexpect(\x1B[22m\x1B[31mlocator\x1B[39m\x1B[2m).\x1B[22mtoBeVisible\x1B[2m()\x1B[22m\n' +
+        '\n' +
+        "Locator: getByTestId('table-block-test-id').getByRole('textbox')\n" +
+        'Expected: visible\n' +
+        'Received: <element(s) not found>\n' +
+        'Call log:\n' +
+        '\x1B[2m  - expect.toBeVisible with timeout 5000ms\x1B[22m\n' +
+        "\x1B[2m  - waiting for getByTestId('table-block-test-id').getByRole('textbox')\x1B[22m\n" +
+        '\n' +
+        '    at CreateDocumentPage.fillNameColumn (/Users/shivam.patel/Documents/ProposifyUI/src/pages/CreateDocumentPage.ts:90:29)\n' +
+        '    at /Users/shivam.patel/Documents/ProposifyUI/src/tests/proposifyui.spec.ts:23:30',
+      cause: undefined,
+      matcherResult: [Object]
+    }
+  }
+}
+]]>
+</system-err>
+</testcase>
+</testsuite>
+</testsuites>

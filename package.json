@@ -1,0 +1,30 @@
+{
+    "name": "playwright-pom-framework",
+    "version": "1.0.0",
+    "description": "Playwright Page Object Model Test Framework",
+    "main": "index.js",
+    "scripts": {
+      "test": "playwright test",
+      "test:headed": "playwright test --headed",
+      "test:debug": "playwright test --debug",
+      "test:ui": "playwright test --ui",
+      "report": "playwright show-report test-results/html-report",
+      "test:smoke": "playwright test --grep @smoke",
+      "test:regression": "playwright test --grep @regression",
+      "test:parallel": "playwright test --workers=4"
+    },
+    "keywords": [
+      "playwright",
+      "testing",
+      "automation"
+    ],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "@playwright/test": "^1.40.0",
+      "@types/node": "^20.8.2",
+      "allure-playwright": "^2.9.2",
+      "dotenv": "^16.3.1",
+      "typescript": "^5.2.2"
+    }
+  }
