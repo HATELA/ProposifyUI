@@ -16,13 +16,25 @@ const config: PlaywrightTestConfig = {
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
-    // Use only Chromium browser
-    browserName: 'chromium',
     viewport: { width: 1280, height: 720 },
     actionTimeout: 15000,
   },
-  // Single project configuration instead of multiple browsers
   outputDir: 'test-results/',
+  // Define multiple projects for different browsers
+  projects: [
+    {
+      name: 'chromium',
+      use: {
+        browserName: 'chromium',
+      },
+    },
+    {
+      name: 'webkit',
+      use: {
+        browserName: 'webkit',
+      },
+    },
+  ],
 };
 
 export default config;
