@@ -32,7 +32,10 @@ jobs:
         run: npx playwright install ${{ matrix.browser }}
       
       - name: Run Playwright tests
-        run: npx playwright test --project=${{ matrix.browser }}
+        run: |
+          npx playwright test --project=${{ matrix.browser }}
+          echo "TEST_EMAIL is set: ${{ env.TEST_EMAIL != '' }}"
+          echo "TEST_PASSWORD is set: ${{ env.TEST_PASSWORD != '' }}"
         env:
           BASE_URL: ${{ secrets.BASE_URL || 'https://app.env9.proposify.link' }}
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
