@@ -35,11 +35,16 @@ export class CreateDocumentPage {
     return instance;
   }
 
+
   async draggingPricingTableInDocument() {
+    // Click on + icon to add content
+    await this.page.waitForTimeout(5000);
+    await this.content_tab.waitFor();
     await expect(this.content_tab).toBeVisible();
     await this.content_tab.click();
   
     // Click on table content button
+    await expect(this.table_content).toBeVisible();
     await this.table_content.click();
     const pricingTableButton = this.page.locator(this.pricing_table_selector);
   
@@ -58,55 +63,53 @@ export class CreateDocumentPage {
   }
   
   async fillNameColumn() {
-    const names = ['Name 1', 'Name 2', 'Name 3', 'Name 4'];
-  
-    for (let i = 0; i < names.length; i++) {
-      const textbox = this.page.getByTestId('table-block-test-id').getByRole('textbox');
-      const emptyParagraph = this.page.getByRole('paragraph').filter({ hasText: /^$/ }).nth(1);
-      const paragraphInTextbox = textbox.getByRole('paragraph');
-  
-      // Ensure textbox is visible and interactable
-      await expect(textbox).toBeVisible();
-      await textbox.click({ force: true });
-  
-      // Fill the name
-      await textbox.fill(names[i]);
-  
-      // Click outside to trigger blur/save
-      await expect(emptyParagraph).toBeVisible();
-      await emptyParagraph.click({ force: true });
-  
-      // Re-focus for the next input
-      await expect(paragraphInTextbox).toBeVisible();
-      await paragraphInTextbox.click({ force: true });
+    // First click the table header with wait
+    await this.page.getByText('TextMultiplierPriceSubtotalNameQuantityPriceSubtotalSubtotal $0Tax %Discount$').waitFor({ state: 'visible' });
+    await this.page.getByText('TextMultiplierPriceSubtotalNameQuantityPriceSubtotalSubtotal $0Tax %Discount$').dblclick();
+ 
+    // Loop to add 4 names
+    for (let i: number = 1; i <= 4; i++) {
+        // Wait for and click empty paragraph
+        await this.page.getByRole('paragraph').filter({ hasText: /^$/ }).nth(1).waitFor({ state: 'visible', timeout: 5000 });
+        
+        // For first 3 items
+        await this.page.getByRole('paragraph').filter({ hasText: /^$/ }).nth(1).dblclick();
+            
+        // Wait for textbox to be ready
+        await this.page.getByTestId('table-block-test-id').getByRole('textbox').waitFor({ state: 'visible', timeout: 5000 });
+        await this.page.getByTestId('table-block-test-id').getByRole('textbox').getByRole('paragraph').dblclick();
+            
+        // Fill in the name and wait for input to complete
+        await this.page.getByTestId('table-block-test-id').getByRole('textbox').fill(`Name ${i}`);
+        // Small delay to ensure value is saved
+        await this.page.waitForTimeout(300);
     }
-  
-    // Final blur action to confirm the last input
-    const finalGridCellParagraph = this.page
-      .getByRole('gridcell', { name: 'Write text here...' })
-      .getByRole('paragraph');
-    const finalEmptyParagraph = this.page
-      .getByTestId('table-block-test-id')
-      .getByRole('paragraph')
-      .filter({ hasText: /^$/ });
-  
-    await expect(finalGridCellParagraph).toBeVisible();
-    await finalGridCellParagraph.click({ force: true });
-  
-    await expect(finalEmptyParagraph).toBeVisible();
-    await finalEmptyParagraph.click({ force: true });
+    // To remove focus from last entered text
+    //await this.page.locator('[data-testid="tiptap-wrapper-footer"] .tiptap p').isVisible();
+    await this.page.getByTestId('title-subtotal').getByText('Subtotal').click();
   }
-
+  
   async dragRow(source: number, target: number) {
     // Retrieve all row elements that can be dragged
-    const draggableRows = await this.page.locator('.MuiDataGrid-row:not(.py-header-row)').all();
+    const draggableRows = await this.page.locator('div.MuiDataGrid-rowReorderCell--draggable').all();
 
     if (source < 0 || source >= draggableRows.length ||
         target < 0 || target >= draggableRows.length) {
       throw new Error("Please enter correct source and target");
     }
 
+    // Log elements to console
+    console.log('Source element:', draggableRows[source]);
+    console.log('Target element:', draggableRows[target]);
+    // Then attempt drag
+
     // Perform drag-and-drop action between the source and target rows
-    await draggableRows[source].dragTo(draggableRows[target]), { force: true };
+    // The cold wait of 2 seconds to make the drag drop more robust and less prone to failure
+    await draggableRows[source].hover();
+    await this.page.mouse.down();
+    await this.page.waitForTimeout(2000);
+    await draggableRows[target].hover();
+    await this.page.mouse.up();
+    await this.page.waitForTimeout(2000);
   }
 }

@@ -1,18 +1,16 @@
 {
   "totalTests": 1,
-  "passed": 0,
-  "failed": 1,
+  "passed": 1,
+  "failed": 0,
   "skipped": 0,
-  "duration": 14642,
+  "duration": 21242,
   "tests": [
     {
       "title": "Create a document and reorder a row after inserting a pricing table,",
-      "status": "failed",
-      "duration": 13429,
+      "status": "passed",
+      "duration": 20885,
       "retry": 0,
-      "errors": [
-        "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByTestId('table-block-test-id').getByRole('textbox')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n\u001b[2m  - expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('table-block-test-id').getByRole('textbox')\u001b[22m\n"
-      ],
+      "errors": [],
       "file": "/Users/shivam.patel/Documents/ProposifyUI/src/tests/proposifyui.spec.ts",
       "line": 8
     }

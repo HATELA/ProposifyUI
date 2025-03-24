@@ -23,12 +23,12 @@ test('Create a document and reorder a row after inserting a pricing table,', asy
     await createDocumentPage.fillNameColumn();
 
     // Get all rows before dragging
-    let allRowsBefore = await page.locator('[role="rowgroup"]').locator('[role="row"]').all();
-    const rowToDragContent = await allRowsBefore[1].textContent();
+    let allRowsBefore = await page.locator('.MuiDataGrid-cell[data-field="column1"] .py-mui-tiptap-input p').all(); 
+    const rowToDragContent = await allRowsBefore[1].textContent();    
 
     // Drag the row
     await createDocumentPage.dragRow(1, 2);
-    let allRowsAfter = await page.locator('[role="rowgroup"]').locator('[role="row"]').all();
+    let allRowsAfter = await page.locator('.MuiDataGrid-cell[data-field="column1"] .py-mui-tiptap-input p').all(); 
     expect(allRowsAfter.length).toBe(allRowsBefore.length);
 
     // Verify dragged row is in correct position
